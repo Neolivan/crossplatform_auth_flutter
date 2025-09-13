@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:crossplatform_auth_flutter/screens/home.dart';
 import 'package:crossplatform_auth_flutter/screens/login.dart';
-import 'package:crossplatform_auth_flutter/screens/register.dart';
 import 'package:crossplatform_auth_flutter/screens/main_page.dart';
-import 'package:crossplatform_auth_flutter/screens/profile.dart';
-import 'package:crossplatform_auth_flutter/screens/settings.dart';
 import 'package:crossplatform_auth_flutter/screens/user_profile.dart';
 import 'package:crossplatform_auth_flutter/screens/not_found.dart';
 
@@ -13,26 +9,18 @@ class RouteProvider extends ChangeNotifier {
   /// Mapa de rotas nomeadas com rotas padrão
   final Map<String, WidgetBuilder> _routes = {
     // Rotas padrão da aplicação
-    '/': (context) => const HomeScreen(),
     '/login': (context) => const LoginScreen(),
-    '/register': (context) => const RegisterScreen(),
+
     '/main': (context) => const MainPageScreen(),
-    '/profile': (context) => const ProfileScreen(),
-    '/settings': (context) => const SettingsScreen(),
+    '/profile': (context) => const UserProfileScreen(),
   };
 
   /// Mapa de rotas com parâmetros
-  final Map<String, Route<dynamic> Function(RouteSettings)> _routeGenerators = {
-    // Rotas com parâmetros padrão
-    '/user/:id': (settings) => MaterialPageRoute(
-      builder: (context) =>
-          UserProfileScreen(userId: settings.arguments as String),
-      settings: settings,
-    ),
-  };
+  final Map<String, Route<dynamic> Function(RouteSettings)> _routeGenerators =
+      {};
 
   /// Rota inicial da aplicação
-  String? _initialRoute = '/';
+  String? _initialRoute = '/login';
 
   /// Rota de fallback quando uma rota não é encontrada
   Widget Function(BuildContext)? _onUnknownRoute = (context) =>
