@@ -45,5 +45,15 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- Permissões de localização para geolocator -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Este aplicativo precisa acessar sua localização para mostrar pontos de coleta próximos e gerar rotas de coleta.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Este aplicativo precisa acessar sua localização para mostrar pontos de coleta próximos e gerar rotas de coleta, mesmo quando o app estiver em segundo plano.</string>
+	<!-- Para iOS 16+ - localização em background -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 </dict>
 </plist>

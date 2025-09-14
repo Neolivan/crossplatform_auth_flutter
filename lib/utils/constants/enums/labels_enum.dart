@@ -118,4 +118,33 @@ mixin LabelsEnum {
   static const String userUpdateFailed = 'Falha ao atualizar usuário';
   static const String userDeletedSuccess = 'Usuário deletado com sucesso';
   static const String userDeleteFailed = 'Falha ao deletar usuário';
+
+  // Tela principal (MainPage)
+  static const String mainPageTitle = appTitle;
+  static const String addCollectionPoint = 'Adicionar Ponto de Coleta';
+  static const String selectTrashType = 'Selecione o tipo de lixo:';
+  static const String updatingLocation = 'Atualizando localização...';
+  static const String generatingRoute = 'Gerando rota...';
+  static const String selectAtLeastOneItem =
+      'Selecione pelo menos um item para gerar a rota';
+  static const String locationNotAvailable = 'Localização não disponível';
+  static const String collectionPointAdded = 'Ponto de coleta adicionado';
+  static const String addCollectionPointTooltip = 'Adicionar ponto de coleta';
+  static const String clearRouteTooltip = 'Limpar rota';
+  static const String recalculateRouteTooltip = 'Recalcular rota';
+  static const String generateRouteTooltip = 'Gerar rota';
+  static const String centerLocationTooltip = 'Centralizar localização';
+
+  // Aplicação
+  static const String appTitle = 'Clean Path';
+
+  // Tema
+  static const String lightMode = 'Modo Claro';
+  static const String darkMode = 'Modo Escuro';
+
+  // Serviços de rota
+  static const String routeFailure = 'Falha ao obter rota';
+  static const String osrmConnectionError = 'Erro ao conectar com OSRM';
+  static const String needAtLeastTwoWaypoints =
+      'Precisa de pelo menos 2 waypoints';
 }

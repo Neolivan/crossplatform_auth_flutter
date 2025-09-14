@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:crossplatform_auth_flutter/routes/route_provider.dart';
+import 'package:crossplatform_auth_flutter/utils/constants/enums/labels_enum.dart';
 import 'package:crossplatform_auth_flutter/utils/global_states/theme_provider.dart';
 import 'package:crossplatform_auth_flutter/utils/global_states/user_provider.dart';
 import 'package:toastification/toastification.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       builder: (context, routeProvider, themeProvider, child) {
         return ToastificationWrapper(
           child: MaterialApp(
-            title: 'Crossplatform Auth Flutter',
+            title: LabelsEnum.appTitle,
             theme: themeProvider.currentTheme,
             themeMode: themeProvider.themeMode,
             // Define rota inicial baseada no estado de autenticação

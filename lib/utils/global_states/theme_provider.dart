@@ -6,8 +6,10 @@ class ThemeProvider extends ChangeNotifier {
   static const String _themeKey = 'theme_mode';
 
   ThemeMode _themeMode = ThemeMode.light;
+  bool _isInitialized = false;
 
   ThemeMode get themeMode => _themeMode;
+  bool get isInitialized => _isInitialized;
 
   bool get isDarkMode => _themeMode == ThemeMode.dark;
   bool get isLightMode => _themeMode == ThemeMode.light;
@@ -32,10 +34,13 @@ class ThemeProvider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       final themeIndex = prefs.getInt(_themeKey) ?? 0;
       _themeMode = ThemeMode.values[themeIndex];
+      _isInitialized = true;
       notifyListeners();
     } catch (e) {
       debugPrint('Erro ao carregar tema: $e');
       _themeMode = ThemeMode.light; // Fallback para light
+      _isInitialized = true;
+      notifyListeners();
     }
   }
 
@@ -51,6 +56,11 @@ class ThemeProvider extends ChangeNotifier {
 
   /// Alterna entre light e dark mode
   Future<void> toggleTheme() async {
+    // Aguarda a inicialização se ainda não foi carregada
+    if (!_isInitialized) {
+      await _loadThemeFromPrefs();
+    }
+
     _themeMode = _themeMode == ThemeMode.light
         ? ThemeMode.dark
         : ThemeMode.light;

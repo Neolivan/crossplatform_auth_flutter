@@ -14,6 +14,7 @@ class UserProfileButton extends StatelessWidget {
     return Consumer<UserProvider>(
       builder: (context, userProvider, child) {
         return PopupMenuButton<String>(
+          tooltip: 'Opções do usuário',
           onSelected: (value) async {
             switch (value) {
               case 'profile':

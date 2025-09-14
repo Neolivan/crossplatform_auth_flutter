@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.crossplatform_auth_flutter"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
