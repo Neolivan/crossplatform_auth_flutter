@@ -6,8 +6,13 @@ import '../models/user_model.dart';
 
 /// Provider para gerenciar estado de autenticação e dados do usuário
 class UserProvider extends ChangeNotifier with UserServices {
+  /// Dados do usuário atual
   UserModel? _user;
+
+  /// Se o usuário está autenticado
   bool _isAuthenticated = false;
+
+  /// Token de autenticação
   String? _token;
 
   /// Dados do usuário atual
@@ -107,6 +112,7 @@ class UserProvider extends ChangeNotifier with UserServices {
     }
   }
 
+  /// Define token e carrega dados do usuário
   Future<void> setToken(String token) async {
     try {
       final prefs = await SharedPreferences.getInstance();

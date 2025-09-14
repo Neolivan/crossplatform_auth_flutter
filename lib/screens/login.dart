@@ -16,12 +16,23 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with UserServices {
+  /// Chave global para validação do formulário
   final _formKey = GlobalKey<FormState>();
+
+  /// Controlador do campo de email
   final _emailController = TextEditingController();
+
+  /// Controlador do campo de senha
   final _passwordController = TextEditingController();
+
+  /// Controla a visibilidade da senha
   bool _isPasswordVisible = false;
+
+  /// Indica se o login está sendo processado
   bool _isLoading = false;
-  bool _isCheckingAuth = true; // Novo estado para verificação de autenticação
+
+  /// Indica se está verificando autenticação inicial
+  bool _isCheckingAuth = true;
 
   @override
   void initState() {
@@ -29,12 +40,13 @@ class _LoginScreenState extends State<LoginScreen> with UserServices {
     verifyIsAuthenticated();
   }
 
+  /// Verifica se o usuário já está autenticado
   verifyIsAuthenticated() async {
     await Provider.of<UserProvider>(context, listen: false).loadUserData();
     Future.delayed(const Duration(seconds: 1), () {
       if (mounted) {
         setState(() {
-          _isCheckingAuth = false; // Para o indicador de carregamento
+          _isCheckingAuth = false;
         });
 
         bool isAuthenticated = Provider.of<UserProvider>(
@@ -55,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> with UserServices {
     super.dispose();
   }
 
+  /// Processa o login do usuário
   Future<void> _handleLogin() async {
     if (_formKey.currentState!.validate()) {
       setState(() {

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../utils/mixins/form_validators/form_validators.dart';
 import '../utils/constants/enums/labels_enum.dart';
 
+/// Diálogo para recuperação de senha
 class ForgotPasswordDialog {
+  /// Exibe o diálogo de recuperação de senha
   static void show(BuildContext context) {
     final emailController = TextEditingController();
     final formKey = GlobalKey<FormState>();

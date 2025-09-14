@@ -3,9 +3,16 @@ import 'package:crossplatform_auth_flutter/utils/global_states/user_provider.dar
 
 /// Widget personalizado para exibir um pin com avatar do usuário no mapa
 class AvatarPinWidget extends StatelessWidget {
+  /// Provider do usuário para obter dados do avatar
   final UserProvider userProvider;
+
+  /// Tamanho do pin
   final double size;
+
+  /// Largura da borda
   final double borderWidth;
+
+  /// Cor da borda
   final Color borderColor;
 
   const AvatarPinWidget({
@@ -52,6 +59,7 @@ class AvatarPinWidget extends StatelessWidget {
     );
   }
 
+  /// Constrói avatar de fallback quando não há imagem
   Widget _buildFallbackAvatar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(

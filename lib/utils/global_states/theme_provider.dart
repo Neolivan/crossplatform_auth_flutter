@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/themes/app_themes.dart';
 
+/// Provider para gerenciar tema da aplicação
 class ThemeProvider extends ChangeNotifier {
+  /// Chave para salvar tema nas preferências
   static const String _themeKey = 'theme_mode';
 
+  /// Modo do tema atual
   ThemeMode _themeMode = ThemeMode.light;
+
+  /// Se o provider foi inicializado
   bool _isInitialized = false;
 
   ThemeMode get themeMode => _themeMode;
@@ -24,6 +29,7 @@ class ThemeProvider extends ChangeNotifier {
     }
   }
 
+  /// Construtor que carrega tema salvo
   ThemeProvider() {
     _loadThemeFromPrefs();
   }

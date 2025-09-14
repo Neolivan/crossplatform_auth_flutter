@@ -15,11 +15,22 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  /// Chave global para validação do formulário
   final _formKey = GlobalKey<FormState>();
+
+  /// Controlador do campo primeiro nome
   late TextEditingController _firstNameController;
+
+  /// Controlador do campo último nome
   late TextEditingController _lastNameController;
+
+  /// Controlador do campo email
   late TextEditingController _emailController;
+
+  /// Controlador do campo avatar
   late TextEditingController _avatarController;
+
+  /// Indica se está processando operação
   bool _isLoading = false;
 
   @override
@@ -28,6 +39,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     _initializeControllers();
   }
 
+  /// Inicializa os controladores com dados do usuário
   void _initializeControllers() {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     _firstNameController = TextEditingController(
@@ -51,6 +63,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     super.dispose();
   }
 
+  /// Salva as alterações do perfil
   Future<void> _saveProfile() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
@@ -91,6 +104,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     }
   }
 
+  /// Exibe diálogo de confirmação para exclusão da conta
   Future<void> _showDeleteAccountDialog() async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -130,6 +144,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     }
   }
 
+  /// Realiza logout do usuário
   Future<void> _logout() async {
     setState(() {
       _isLoading = true;
@@ -159,6 +174,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     }
   }
 
+  /// Exclui a conta do usuário
   Future<void> _deleteAccount() async {
     setState(() {
       _isLoading = true;

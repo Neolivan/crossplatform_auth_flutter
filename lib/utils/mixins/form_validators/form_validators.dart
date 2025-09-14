@@ -1,4 +1,6 @@
+/// Mixin com validadores de formulário
 mixin FormValidators {
+  /// Valida formato de email
   static String? validEmail(String? emailTovalid) {
     if (emailTovalid == null || emailTovalid.isEmpty) {
       return 'Por favor, digite seu email';

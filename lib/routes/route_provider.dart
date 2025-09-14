@@ -8,9 +8,7 @@ import 'package:crossplatform_auth_flutter/screens/not_found.dart';
 class RouteProvider extends ChangeNotifier {
   /// Mapa de rotas nomeadas com rotas padrão
   final Map<String, WidgetBuilder> _routes = {
-    // Rotas padrão da aplicação
     '/login': (context) => const LoginScreen(),
-
     '/main': (context) => const MainPageScreen(),
     '/profile': (context) => const UserProfileScreen(),
   };

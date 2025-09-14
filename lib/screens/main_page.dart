@@ -17,6 +17,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
+/// Tela principal com mapa e funcionalidades de coleta
 class MainPageScreen extends StatefulWidget {
   const MainPageScreen({super.key});
 
@@ -26,13 +27,28 @@ class MainPageScreen extends StatefulWidget {
 
 class _MainPageScreenState extends State<MainPageScreen>
     with MapLocatorUtils, MapRoutesService {
+  /// Controlador do mapa
   final MapController _mapController = MapController();
+
+  /// Posição atual do usuário
   Position? _myPosition;
+
+  /// Lista de pontos de coleta
   List<TrashModel> _trashList = [];
+
+  /// IDs dos pontos de coleta selecionados
   List<int> _selectedTrashIds = [];
+
+  /// Rota calculada entre os pontos
   List<LatLng>? _route;
+
+  /// Indica se está carregando localização
   bool _isLoading = false;
+
+  /// Indica se está gerando rota
   bool _isGeneratingRoute = false;
+
+  /// Timer para atualização periódica da localização
   Timer? _locationTimer;
 
   @override
@@ -47,6 +63,7 @@ class _MainPageScreenState extends State<MainPageScreen>
     super.dispose();
   }
 
+  /// Inicializa o rastreamento de localização
   void _initLocationTracking() {
     // Busca a localização inicial
     _updateLocation(true);
@@ -57,6 +74,7 @@ class _MainPageScreenState extends State<MainPageScreen>
     });
   }
 
+  /// Atualiza a localização do usuário
   Future<void> _updateLocation(bool isFirstLocation) async {
     if (isFirstLocation) {
       setState(() {
@@ -99,6 +117,7 @@ class _MainPageScreenState extends State<MainPageScreen>
     }
   }
 
+  /// Centraliza o mapa na localização atual
   void _centerMapOnLocation() {
     if (_myPosition != null) {
       _mapController.move(
@@ -108,6 +127,7 @@ class _MainPageScreenState extends State<MainPageScreen>
     }
   }
 
+  /// Gera rota entre os pontos selecionados
   void _generateRoute() async {
     setState(() {
       _isGeneratingRoute = true;
@@ -144,6 +164,7 @@ class _MainPageScreenState extends State<MainPageScreen>
     });
   }
 
+  /// Limpa a rota e seleções
   void _clearRoute() {
     setState(() {
       _route = null;
@@ -151,6 +172,7 @@ class _MainPageScreenState extends State<MainPageScreen>
     });
   }
 
+  /// Adiciona novo ponto de coleta
   void _addTrashPoint() {
     if (_myPosition == null) {
       ToastShow.showToast(
@@ -193,6 +215,7 @@ class _MainPageScreenState extends State<MainPageScreen>
     );
   }
 
+  /// Adiciona ponto de coleta ao mapa
   void _addTrashToMap(TrashTypeEnum trashType) {
     if (_myPosition == null) return;
 
@@ -216,6 +239,7 @@ class _MainPageScreenState extends State<MainPageScreen>
     );
   }
 
+  /// Calcula distância entre duas posições
   double _calculateDistance(Position pos1, Position pos2) {
     const Distance distance = Distance();
     return distance.as(
@@ -225,6 +249,7 @@ class _MainPageScreenState extends State<MainPageScreen>
     );
   }
 
+  /// Alterna seleção de ponto de coleta
   void _toggleTrashSelection(int trashId) {
     setState(() {
       if (_selectedTrashIds.contains(trashId)) {

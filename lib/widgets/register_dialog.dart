@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import '../utils/mixins/form_validators/form_validators.dart';
 import '../utils/constants/enums/labels_enum.dart';
 
+/// Diálogo para registro de novo usuário
 class RegisterDialog with UserServices {
+  /// Exibe o diálogo de registro
   void show(BuildContext context) {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
@@ -180,6 +182,7 @@ class RegisterDialog with UserServices {
     );
   }
 
+  /// Constrói indicador de força da senha
   static Widget _buildPasswordStrengthIndicator(String password) {
     final strength = _calculatePasswordStrength(password);
 
@@ -225,6 +228,7 @@ class RegisterDialog with UserServices {
     );
   }
 
+  /// Constrói lista de requisitos da senha
   static Widget _buildPasswordRequirements(String password) {
     final requirements = [
       {'text': LabelsEnum.minLength, 'met': password.length >= 6},
@@ -265,6 +269,7 @@ class RegisterDialog with UserServices {
     );
   }
 
+  /// Calcula a força da senha
   static int _calculatePasswordStrength(String password) {
     int strength = 0;
 
@@ -276,6 +281,7 @@ class RegisterDialog with UserServices {
     return strength;
   }
 
+  /// Obtém texto da força da senha
   static String _getStrengthText(int strength) {
     switch (strength) {
       case 0:
@@ -292,6 +298,7 @@ class RegisterDialog with UserServices {
     }
   }
 
+  /// Obtém cor da força da senha
   static Color _getStrengthColor(int strength) {
     switch (strength) {
       case 0:
@@ -308,6 +315,7 @@ class RegisterDialog with UserServices {
     }
   }
 
+  /// Valida a senha conforme requisitos
   static String? _validatePassword(String password) {
     if (password.length < 6) {
       return LabelsEnum.passwordMinLengthRegister;

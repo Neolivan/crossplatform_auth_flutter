@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:toastification/toastification.dart';
 
+/// Mixin para exibir notificações toast
 mixin ToastShow {
+  /// Exibe notificação toast
   static void showToast({
     String title = "",
     String description = "",

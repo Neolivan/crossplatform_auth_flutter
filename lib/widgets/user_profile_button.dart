@@ -6,7 +6,9 @@ import 'package:crossplatform_auth_flutter/utils/constants/enums/labels_enum.dar
 
 /// Widget personalizado para botão de perfil do usuário
 class UserProfileButton extends StatelessWidget {
+  /// Se deve exibir opção de editar perfil
   final bool showEditProfile;
+
   const UserProfileButton({super.key, this.showEditProfile = true});
 
   @override

@@ -6,7 +6,9 @@ import 'package:crossplatform_auth_flutter/utils/services/base_request.dart';
 import 'package:crossplatform_auth_flutter/utils/constants/enums/labels_enum.dart';
 import 'package:toastification/toastification.dart';
 
+/// Mixin com serviços de usuário
 mixin UserServices {
+  /// Cliente HTTP para requisições
   BaseRequest baseRequest = BaseRequest(
     headers: {
       'Content-Type': 'application/json',
@@ -16,6 +18,7 @@ mixin UserServices {
     baseUrl: 'https://reqres.in/api/',
   );
 
+  /// Realiza login do usuário
   Future<String?> login(String email, String password) async {
     try {
       final response = await baseRequest.post(
@@ -48,6 +51,7 @@ mixin UserServices {
     }
   }
 
+  /// Registra novo usuário
   Future<Map<String, dynamic>?> register(String email, String password) async {
     try {
       final response = await baseRequest.post(
@@ -80,6 +84,7 @@ mixin UserServices {
     }
   }
 
+  /// Obtém informações do usuário
   Future<UserModel?> getUserInfo(String token) async {
     try {
       final response = await baseRequest.get('users/2');
@@ -104,6 +109,7 @@ mixin UserServices {
     }
   }
 
+  /// Realiza logout do usuário
   Future<bool> logoutToken(String? token) async {
     try {
       final response = await baseRequest.post('logout', body: {'token': token});
@@ -132,6 +138,7 @@ mixin UserServices {
     }
   }
 
+  /// Atualiza informações do usuário
   Future<bool> updateUserInfo(UserModel user) async {
     try {
       // final userJson = jsonEncode(user.toJson());
@@ -162,6 +169,7 @@ mixin UserServices {
     }
   }
 
+  /// Exclui usuário
   Future<bool> deleteUser(String id) async {
     try {
       final response = await baseRequest.delete('users/$id');

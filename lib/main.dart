@@ -6,6 +6,7 @@ import 'package:crossplatform_auth_flutter/utils/global_states/theme_provider.da
 import 'package:crossplatform_auth_flutter/utils/global_states/user_provider.dart';
 import 'package:toastification/toastification.dart';
 
+/// Função principal da aplicação
 void main() {
   runApp(
     MultiProvider(
@@ -19,6 +20,7 @@ void main() {
   );
 }
 
+/// Widget principal da aplicação
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

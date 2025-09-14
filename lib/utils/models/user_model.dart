@@ -1,9 +1,18 @@
 /// Modelo de dados do usuário baseado na API ReqRes
 class UserModel {
+  /// ID único do usuário
   final int id;
+
+  /// Email do usuário
   final String email;
+
+  /// Primeiro nome do usuário
   final String firstName;
+
+  /// Último nome do usuário
   final String lastName;
+
+  /// URL do avatar do usuário
   final String avatar;
 
   const UserModel({
