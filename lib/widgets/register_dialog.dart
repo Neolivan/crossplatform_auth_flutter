@@ -83,7 +83,7 @@ class RegisterDialog with UserServices {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Por favor, digite sua senha';
+                            return LabelsEnum.enterPasswordRegister;
                           }
                           return _validatePassword(value);
                         },
@@ -121,7 +121,7 @@ class RegisterDialog with UserServices {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Por favor, confirme sua senha';
+                            return LabelsEnum.confirmPasswordRegister;
                           }
                           if (value != passwordController.text) {
                             return LabelsEnum.passwordsDoNotMatch;
@@ -310,13 +310,13 @@ class RegisterDialog with UserServices {
 
   static String? _validatePassword(String password) {
     if (password.length < 6) {
-      return 'A senha deve ter pelo menos 6 caracteres';
+      return LabelsEnum.passwordMinLengthRegister;
     }
     if (!password.contains(RegExp(r'[A-Z]'))) {
-      return 'A senha deve conter pelo menos uma letra maiúscula';
+      return LabelsEnum.passwordUppercaseRegister;
     }
     if (!password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'A senha deve conter pelo menos um caractere especial';
+      return LabelsEnum.passwordSpecialCharRegister;
     }
     return null;
   }

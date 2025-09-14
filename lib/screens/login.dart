@@ -3,6 +3,7 @@ import 'package:crossplatform_auth_flutter/utils/global_states/user_provider.dar
 import 'package:crossplatform_auth_flutter/utils/mixins/form_validators/form_validators.dart';
 import 'package:crossplatform_auth_flutter/utils/services/user/user_services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../widgets/theme_toggle_button.dart';
 import '../widgets/forgot_password_dialog.dart';
 import '../widgets/register_dialog.dart';
@@ -20,6 +21,32 @@ class _LoginScreenState extends State<LoginScreen> with UserServices {
   final _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _isLoading = false;
+  bool _isCheckingAuth = true; // Novo estado para verificação de autenticação
+
+  @override
+  void initState() {
+    super.initState();
+    verifyIsAuthenticated();
+  }
+
+  verifyIsAuthenticated() async {
+    await Provider.of<UserProvider>(context, listen: false).loadUserData();
+    Future.delayed(const Duration(seconds: 1), () {
+      if (mounted) {
+        setState(() {
+          _isCheckingAuth = false; // Para o indicador de carregamento
+        });
+
+        bool isAuthenticated = Provider.of<UserProvider>(
+          context,
+          listen: false,
+        ).isAuthenticated;
+        if (isAuthenticated) {
+          Navigator.popAndPushNamed(context, '/main');
+        }
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -44,7 +71,8 @@ class _LoginScreenState extends State<LoginScreen> with UserServices {
       });
 
       if (response != null) {
-        await UserProvider().setToken(response);
+        final userProvider = Provider.of<UserProvider>(context, listen: false);
+        await userProvider.setToken(response);
         Navigator.popAndPushNamed(context, '/main');
       }
     }
@@ -52,6 +80,31 @@ class _LoginScreenState extends State<LoginScreen> with UserServices {
 
   @override
   Widget build(BuildContext context) {
+    // Se está verificando autenticação, mostra loading
+    if (_isCheckingAuth) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              const SizedBox(height: 24),
+              Text(
+                LabelsEnum.checkingAuthentication,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -131,10 +184,10 @@ class _LoginScreenState extends State<LoginScreen> with UserServices {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Por favor, digite sua senha';
+                                return LabelsEnum.enterPasswordValidation;
                               }
                               if (value.length < 6) {
-                                return 'A senha deve ter pelo menos 6 caracteres';
+                                return LabelsEnum.passwordMinLength;
                               }
                               return null;
                             },

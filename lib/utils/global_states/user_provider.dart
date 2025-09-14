@@ -41,12 +41,10 @@ class UserProvider extends ChangeNotifier with UserServices {
   String get userInitials => _user?.initials ?? '';
 
   /// Construtor que carrega dados salvos
-  UserProvider() {
-    _loadUserData();
-  }
+  UserProvider();
 
   /// Carrega dados do usuário salvos localmente
-  Future<void> _loadUserData() async {
+  Future<void> loadUserData() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final userJson = prefs.getString('user_data');
@@ -82,7 +80,7 @@ class UserProvider extends ChangeNotifier with UserServices {
   }
 
   /// Remove dados salvos localmente
-  Future<void> _clearUserData() async {
+  Future<void> clearUserData() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('user_data');
@@ -97,7 +95,7 @@ class UserProvider extends ChangeNotifier with UserServices {
     if (_token == null) return false;
 
     try {
-      // Aqui você faria a chamada para sua API para validar o token
+      // Aqui você faria a chamada para a API para validar o token
       await Future.delayed(
         const Duration(milliseconds: 500),
       ); // Simula delay da API
@@ -122,6 +120,66 @@ class UserProvider extends ChangeNotifier with UserServices {
       notifyListeners();
     } catch (e) {
       debugPrint('Erro ao salvar dados do usuário: $e');
+    }
+  }
+
+  /// Atualiza dados do usuário
+  Future<void> updateUser(UserModel updatedUser) async {
+    try {
+      var updateUser = await updateUserInfo(updatedUser);
+      if (updateUser) {
+        _user = updatedUser;
+        await _saveUserData();
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint('Erro ao atualizar usuário: $e');
+    }
+  }
+
+  /// Realiza logout do usuário
+  Future<void> logout(Function() onLogout) async {
+    try {
+      var logout = await logoutToken(_token!);
+
+      if (logout) {
+        // Limpa o estado
+        _user = null;
+        _token = null;
+        _isAuthenticated = false;
+
+        // Remove dados salvos localmente
+        await clearUserData();
+
+        onLogout();
+
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint('Erro ao fazer logout: $e');
+    }
+  }
+
+  /// Realiza deletar conta do usuário
+  Future<void> deleteAccount(Function() callback) async {
+    try {
+      var deletedUser = await deleteUser("2");
+
+      if (deletedUser) {
+        // Limpa o estado
+        _user = null;
+        _token = null;
+        _isAuthenticated = false;
+
+        // Remove dados salvos localmente
+        await clearUserData();
+
+        callback();
+
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint('Erro ao fazer logout: $e');
     }
   }
 }

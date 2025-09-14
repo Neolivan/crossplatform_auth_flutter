@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:crossplatform_auth_flutter/utils/constants/enums/labels_enum.dart';
 
 /// Tela de página não encontrada
 class NotFoundScreen extends StatelessWidget {
@@ -7,7 +8,7 @@ class NotFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Página não encontrada')),
+      appBar: AppBar(title: const Text(LabelsEnum.pageNotFound)),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -15,11 +16,11 @@ class NotFoundScreen extends StatelessWidget {
             Icon(Icons.error_outline, size: 64, color: Colors.red),
             SizedBox(height: 16),
             Text(
-              '404',
+              LabelsEnum.error404,
               style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
-            Text('Página não encontrada', style: TextStyle(fontSize: 18)),
+            Text(LabelsEnum.pageNotFound, style: TextStyle(fontSize: 18)),
           ],
         ),
       ),

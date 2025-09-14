@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             title: 'Crossplatform Auth Flutter',
             theme: themeProvider.currentTheme,
             themeMode: themeProvider.themeMode,
-            // Usa as rotas configuradas no RouteProvider
+            // Define rota inicial baseada no estado de autenticação
             initialRoute: routeProvider.initialRoute,
             routes: routeProvider.routes,
             onGenerateRoute: (settings) {
